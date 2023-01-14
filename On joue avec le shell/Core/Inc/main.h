@@ -31,7 +31,10 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
+#include "shell.h"
+#include "drv_uart1.h"
+#include "cmsis_os.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -41,7 +44,7 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-
+extern SemaphoreHandle_t sem;
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
@@ -57,8 +60,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define pin_led_Pin GPIO_PIN_1
-#define pin_led_GPIO_Port GPIOI
+#define LED_Pin GPIO_PIN_1
+#define LED_GPIO_Port GPIOI
 #define USER_BTN_Pin GPIO_PIN_11
 #define USER_BTN_GPIO_Port GPIOI
 /* USER CODE BEGIN Private defines */

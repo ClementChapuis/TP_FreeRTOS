@@ -25,8 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
-#include "shell.h"
-#include "drv_uart1.h"
+#include <stdlib.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -37,8 +36,8 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define STACK_SIZE 1000
-#define DELAY_CLIGNOTEMENT 100
 #define DELAY_SHELL 100
+#define TASK_SPAM_PRIORITY 3
 #define TASK_CLIGNOTEMENT_PRIORITY 2
 #define TASK_SHELL_PRIORITY 1
 /* USER CODE END PD */
@@ -52,7 +51,14 @@
 
 /* USER CODE BEGIN PV */
 h_shell_t h_shell;
-SemaphoreHandle_t sem;
+TaskHandle_t xHandle_clignotement = NULL;
+TaskHandle_t xHandle_shell = NULL;
+TaskHandle_t xHandle_spam = NULL;
+char msg[100];
+SemaphoreHandle_t sem_led;
+SemaphoreHandle_t sem_spam;
+int periode;
+int repetition;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -73,37 +79,54 @@ int fonction(h_shell_t * h_shell, int argc, char ** argv)
 	return 0;
 }
 
-void clignotement(periode)
+void clignotement(void * pvParameters)
 {
+	xSemaphoreTake(sem_led, portMAX_DELAY);
 	while(1)
 	{
-	HAL_GPIO_WritePin(pin_led_GPIO_Port, pin_led_Pin, SET);
-	vTaskDelay(periode/2);
-	HAL_GPIO_WritePin(pin_led_GPIO_Port, pin_led_Pin, RESET);
-	vTaskDelay(periode/2);
+		if(periode ==0)
+		{
+			HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, RESET);
+		}else{
+			HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+			vTaskDelay(periode);
+		}
 	}
 }
 
-int led(h_shell_t * h_shell, int argc, char ** argv)
+void led(h_shell_t * h_shell, int argc, char ** argv)
 {
-	int duree = (int) argv;
-
-	if(duree !=0)
+	periode = atoi(argv[1]);
+	if(periode !=0)
 	{
-		clignotement(duree/2);
+		xSemaphoreGive(sem_led);
 	}
-	return 0;
 }
 
-int shell(h_shell_t * h_shell, int argc, char ** argv)
-{
-	while(1)
+void task_spam(){
+	xSemaphoreTake(sem_spam, portMAX_DELAY);
+	for(int i = 0; i <= repetition; i++)
 	{
-		shell_init(&h_shell);
-		shell_add(&h_shell, 'f', fonction, "Une fonction inutile");
-		shell_add(&h_shell, 'l', led, "Clignotement d'une led");
-		shell_run(&h_shell);
+		printf("%s\r\n", msg);
+		vTaskDelay(100);
 	}
+}
+
+void spam(h_shell_t * h_shell, int argc, char ** argv)
+{
+	strcpy(msg, argv[1]);
+	repetition = atoi(argv[2]);
+	xSemaphoreGive(sem_spam);
+}
+
+void shell(void * pvParameters)
+{
+
+	shell_init(&h_shell);
+	shell_add(&h_shell, 'f', fonction, "Une fonction inutile");
+	shell_add(&h_shell, 'l', led, "Clignotement d'une led");
+	shell_add(&h_shell, 's', spam, "Fonction spam");
+	shell_run(&h_shell);
 }
 
 int __io_putchar(int ch)
@@ -111,13 +134,6 @@ int __io_putchar(int ch)
 	HAL_UART_Transmit(&huart1, (uint8_t*)&ch, 1, HAL_MAX_DELAY);
 
 	return ch;
-}
-
-int uart_receive(void)
-{
-	HAL_UART_Transmit_IT(&huart1, (uint8_t*)&, 1,);
-	xSemaphoreTake(sem, portMAX_DELAY);
-	return 0;
 }
 
 /* USER CODE END 0 */
@@ -130,7 +146,6 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
   BaseType_t xReturned;
-  TaskHandle_t xHandle_clignotement = NULL;
   TaskHandle_t xHandle_shell = NULL;
   /* USER CODE END 1 */
 
@@ -156,10 +171,12 @@ int main(void)
   /* USER CODE BEGIN 2 */
   h_shell.drv.receive = drv_uart1_receive;
   h_shell.drv.transmit = drv_uart1_transmit;
-
   sem = xSemaphoreCreateBinary();
-  xReturned = xTaskCreate(clignotement, "clignotement", STACK_SIZE, (void *) DELAY_CLIGNOTEMENT, TASK_CLIGNOTEMENT_PRIORITY, &xHandle_clignotement);
+  sem_led = xSemaphoreCreateBinary();
+  sem_spam = xSemaphoreCreateBinary();
   xReturned = xTaskCreate(shell, "shell", STACK_SIZE, (void *) DELAY_SHELL, TASK_SHELL_PRIORITY, &xHandle_shell);
+  xReturned = xTaskCreate(clignotement, "clignotement", STACK_SIZE, (void *) periode, TASK_CLIGNOTEMENT_PRIORITY, &xHandle_clignotement);
+  xReturned = xTaskCreate(spam, "spam", STACK_SIZE, (void *) DELAY_SHELL, TASK_SPAM_PRIORITY, &xHandle_spam);
 
   vTaskStartScheduler();
   /* USER CODE END 2 */
