@@ -1,2 +1,3 @@
-../shell/drv_uart1.c:13:9:drv_uart1_receive	16	static
-../shell/drv_uart1.c:20:9:drv_uart1_transmit	16	static
+../shell/drv_uart1.c:15:9:drv_uart1_receive	16	static
+../shell/drv_uart1.c:27:9:drv_uart1_transmit	16	static
+../shell/drv_uart1.c:35:6:HAL_UART_RxCpltCallback	16	static,ignoring_inline_asm
