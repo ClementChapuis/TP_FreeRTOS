@@ -38,6 +38,8 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim_ex.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
+ C:/Users/cleme/STM32CubeIDE/workspace_1.10.1/rtos_td_shell/shell/shell.h \
+ C:/Users/cleme/STM32CubeIDE/workspace_1.10.1/rtos_td_shell/shell/drv_uart1.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
@@ -86,6 +88,8 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim_ex.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h:
+C:/Users/cleme/STM32CubeIDE/workspace_1.10.1/rtos_td_shell/shell/shell.h:
+C:/Users/cleme/STM32CubeIDE/workspace_1.10.1/rtos_td_shell/shell/drv_uart1.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:

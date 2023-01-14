@@ -29,6 +29,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim_ex.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
+ C:/Users/cleme/STM32CubeIDE/workspace_1.10.1/rtos_td_shell/shell/shell.h \
+ C:/Users/cleme/STM32CubeIDE/workspace_1.10.1/rtos_td_shell/shell/drv_uart1.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
@@ -46,9 +48,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- ../Core/Inc/usart.h ../Core/Inc/main.h ../Core/Inc/gpio.h \
- C:/Users/cleme/STM32CubeIDE/workspace_1.10.1/rtos_td_shell/shell/shell.h \
- C:/Users/cleme/STM32CubeIDE/workspace_1.10.1/rtos_td_shell/shell/drv_uart1.h
+ ../Core/Inc/usart.h ../Core/Inc/main.h ../Core/Inc/gpio.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:
 ../Core/Inc/stm32f7xx_hal_conf.h:
@@ -80,6 +80,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim_ex.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h:
+C:/Users/cleme/STM32CubeIDE/workspace_1.10.1/rtos_td_shell/shell/shell.h:
+C:/Users/cleme/STM32CubeIDE/workspace_1.10.1/rtos_td_shell/shell/drv_uart1.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
@@ -100,5 +102,3 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/usart.h:
 ../Core/Inc/main.h:
 ../Core/Inc/gpio.h:
-C:/Users/cleme/STM32CubeIDE/workspace_1.10.1/rtos_td_shell/shell/shell.h:
-C:/Users/cleme/STM32CubeIDE/workspace_1.10.1/rtos_td_shell/shell/drv_uart1.h:
